@@ -1,14 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool canAct;
-    public int actionPoints;
-    public int maxActionPoints;
-    public int minActionPoints = 0;
-
+    public Unit playerUnit;
     public float movementSpeed = 5f;
     public float rotationSpeed = 180f;
 
@@ -17,13 +14,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject playerDirector;
     void Start()
     {
-        if (!canAct) return;
-        actionPoints = maxActionPoints;
+        playerUnit = GetComponent<Unit>();
     }
 
     void Update()
     {
-        if (canAct && !isMoving)
+        if (playerUnit.canAct && !isMoving)
         {
             HandleMovement();
         }
@@ -64,6 +60,7 @@ public class PlayerController : MonoBehaviour
 
         transform.position = targetPosition;
         isMoving = false;
+        playerUnit.actionPoints--;
     }
 
     IEnumerator RotatePlayer(float angle)
@@ -81,5 +78,6 @@ public class PlayerController : MonoBehaviour
 
         transform.rotation = targetRotation;
         isMoving = false;
+        playerUnit.actionPoints--;
     }
 }
