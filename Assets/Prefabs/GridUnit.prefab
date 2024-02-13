@@ -221,7 +221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe25a616baf53140be9abf8711a3724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessID: 0
+  accessID: 1
+  rewardPoints: 0
   x: 0
   y: 0
   idText: {fileID: 0}

@@ -6,6 +6,7 @@ using TMPro;
 public class GridInfo : MonoBehaviour
 {
     public int accessID;
+    public int rewardPoints;
     public int x;
     public int y;
 

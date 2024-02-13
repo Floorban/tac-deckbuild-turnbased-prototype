@@ -108,6 +108,7 @@ public class TurnBasedSystem : MonoBehaviour
         Debug.Log("Enemy turn");
         for (int i = 0; i < enemyPrefabs.Length; i++)
         {
+            enemyUnits[i] = enemyPrefabs[i].GetComponent<Unit>();
             enemyUnits[i].StartTurn();
         }
     }

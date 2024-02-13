@@ -11,6 +11,7 @@ public class GridManager : MonoBehaviour
     public GameObject gridPrefab;
     public Vector3 leftButtonPos = Vector3.zero;
     public GameObject[,] gridArray;
+    public GameObject[,] rewardArray;
     public int startX;
     public int startY;
     public int endX;
@@ -60,7 +61,8 @@ public class GridManager : MonoBehaviour
         {
             for (int j = 0; j < rows; j++)
             {
-                GameObject obj = Instantiate(gridPrefab, new Vector3(leftButtonPos.x + scale * i, leftButtonPos.y, leftButtonPos.z + scale * j), Quaternion.identity);
+                GameObject obj = Instantiate(gridPrefab, 
+                    new Vector3(leftButtonPos.x + scale * i, leftButtonPos.y, leftButtonPos.z + scale * j), Quaternion.identity);
                 obj.transform.SetParent(gameObject.transform);
                 obj.GetComponent<GridInfo>().x = i;
                 obj.GetComponent<GridInfo>().y = j;
@@ -169,21 +171,33 @@ public class GridManager : MonoBehaviour
     void TestFourDirections(int x, int y, int step)
     {
         if (TestDirection(x, y, -1, 1))
-            SetVisited(x, y + 1, step);
+            SetAccessId(x, y + 1, step);
 
         if (TestDirection(x, y, -1, 2))
-            SetVisited(x + 1, y, step);
+            SetAccessId(x + 1, y, step);
 
         if (TestDirection(x, y, -1, 3))
-            SetVisited(x, y - 1, step);
+            SetAccessId(x, y - 1, step);
 
         if (TestDirection(x, y, -1, 4))
-            SetVisited(x - 1, y, step);
+            SetAccessId(x - 1, y, step);
     }
-    void SetVisited(int x, int y, int step)
+    void SetAccessId(int x, int y, int step)
     {
         if (gridArray[x, y])
             gridArray[x, y].GetComponent<GridInfo>().accessID = step;
+    }
+    public void FindPlayerPos(int x, int y)
+    {
+        GameObject player = FindObjectOfType<PlayerController>().gameObject;
+        Vector3 playerPos = new Vector3 (player.transform.position.x, 0, player.transform.position.z);
+        if (rewardArray[x, y])
+            Debug.Log("what?");
+    }
+    void SetRewardPoints(int x, int y, int rewardPoint)
+    {
+        if (gridArray[x,y])
+        gridArray[x, y].GetComponent<GridInfo>().rewardPoints = rewardPoint;
     }
     GameObject FindClosest(Transform targetLocation, List<GameObject> list)
     {
@@ -203,7 +217,7 @@ public class GridManager : MonoBehaviour
     public GameObject unit;
     public float moveSpeed;
     public bool move;
-    void MoveUnit()
+    public void MoveUnit()
     {
         if (gridArray[endX, endY] && gridArray[endX, endY].GetComponent<GridInfo>().accessID > 0)
         {

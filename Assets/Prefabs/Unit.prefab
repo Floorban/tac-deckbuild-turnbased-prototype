@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05b2fb83b81a874e8e40bc667c34859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAct: 0
-  actionPoints: 0
+  canAct: 1
+  actionPoints: 3
   maxActionPoints: 3
   health: 3
   maxHealth: 0
@@ -136,3 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc677ce826c1af64cbadf357e0d13321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canFind: 1
+  points: 0
+  nextLocation: {fileID: 0}
+  enemyUnit: {fileID: 0}
+  gridManager: {fileID: 0}
