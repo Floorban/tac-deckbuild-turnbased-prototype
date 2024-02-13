@@ -9,6 +9,11 @@ public class Unit : MonoBehaviour
     public int maxActionPoints;
     public int health;
     public int maxHealth;
+
+    void Update()
+    {
+        EndTurn();
+    }
     public void StartTurn()
     {
         actionPoints = maxActionPoints;

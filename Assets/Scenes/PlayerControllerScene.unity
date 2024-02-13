@@ -288,6 +288,7 @@ MonoBehaviour:
   points: 0
   nextLocation: {fileID: 0}
   gridManager: {fileID: 0}
+  allEnemiesFinished: 0
 --- !u!4 &593354192
 Transform:
   m_ObjectHideFlags: 0

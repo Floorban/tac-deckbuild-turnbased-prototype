@@ -27,6 +27,8 @@ public class TurnBasedSystem : MonoBehaviour
     public int points;
     public Transform nextLocation;
     public GridManager gridManager;
+
+    [SerializeField] bool allEnemiesFinished;
     void Start()
     {
         gridManager = FindObjectOfType<GridManager>();
@@ -48,34 +50,27 @@ public class TurnBasedSystem : MonoBehaviour
     }
     void EndTurnCondition()
     {
-       if (state == GameState.PlayerTurn && playerUnit.actionPoints <= 0)
+        if (state == GameState.PlayerTurn && playerUnit.actionPoints <= 0)
         {
             playerUnit.EndTurn();
             state = GameState.EnemyTurn;
             EnemyTurn();
         }
 
-        bool[] isFinished = new bool[enemyPrefabs.Length];
-
-        for (int i = 0; i < enemyPrefabs.Length; i++) 
+        for (int i = 0; i < enemyUnits.Length; i++)
         {
-            if (state == GameState.EnemyTurn && enemyUnits[i].actionPoints < 0)
-            {
-                isFinished[i] = true;
-            }
-        }
-        bool allEnemiesFinished = true;
-
-        for (int i = 0; i < isFinished.Length; i++)
-        {
-            if (!isFinished[i])
+            if (enemyUnits[i].canAct)
             {
                 allEnemiesFinished = false;
-                break;
+            }
+            else
+            {
+                allEnemiesFinished = true;
+                break; // Exit the loop as soon as one enemy can still act
             }
         }
 
-        if (allEnemiesFinished)
+        if (allEnemiesFinished && state == GameState.EnemyTurn)
         {
             for (int i = 0; i < enemyUnits.Length; i++)
             {
@@ -93,7 +88,7 @@ public class TurnBasedSystem : MonoBehaviour
         for (int i = 0; i < enemyPrefabs.Length; i++)
         {
             GameObject enemyGo = Instantiate(enemyPrefabs[i], enemySpawnTrans[i]);
-            enemyUnits[i] = enemyGo.GetComponent<Unit>();
+            enemyUnits[i] = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Unit>();
         }
         Debug.Log("Battel starts");
         yield return new WaitForSeconds(1f);
@@ -114,7 +109,6 @@ public class TurnBasedSystem : MonoBehaviour
         FindPlayer();
         for (int i = 0; i < enemyPrefabs.Length; i++)
         {
-            enemyUnits[i] = enemyPrefabs[i].GetComponent<Unit>();
             enemyUnits[i].StartTurn();
 
             if (enemyUnits[i].canAct)

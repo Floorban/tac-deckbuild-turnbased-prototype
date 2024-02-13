@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (playerUnit.canAct && !isMoving)
+        if (playerUnit.canAct && !isMoving && playerUnit.actionPoints > 0)
         {
             HandleMovement();
         }
