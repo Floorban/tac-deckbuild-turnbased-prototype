@@ -48,7 +48,7 @@ public class TurnBasedSystem : MonoBehaviour
     }
     void EndTurnCondition()
     {
-       if (state == GameState.PlayerTurn && playerUnit.actionPoints < 0)
+       if (state == GameState.PlayerTurn && playerUnit.actionPoints <= 0)
         {
             playerUnit.EndTurn();
             state = GameState.EnemyTurn;

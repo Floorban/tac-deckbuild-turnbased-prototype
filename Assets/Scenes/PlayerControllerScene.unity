@@ -371,6 +371,10 @@ PrefabInstance:
       propertyPath: canFind
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7319851772739049401, guid: 1db2de1db6106d24ebc0940f5b6b8164, type: 3}
+      propertyPath: findDistance
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

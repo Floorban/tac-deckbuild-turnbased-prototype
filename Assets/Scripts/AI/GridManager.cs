@@ -224,15 +224,21 @@ public class GridManager : MonoBehaviour
     }
     IEnumerator MoveAlongPath()
     {
+        Unit unitComponent = unit.GetComponent<Unit>();
 
-        foreach (GameObject gridCell in path)
+        while (unitComponent.actionPoints >= 0 && path.Count > 0)
         {
+            GameObject gridCell = path[0];
             Vector3 targetPosition = gridCell.transform.position;
             targetPosition.y = unit.transform.position.y;
             unit.transform.position = targetPosition;
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(1f);
+
+            path.RemoveAt(0);
+            unitComponent.actionPoints--;
         }
+
         startX = (int)unit.transform.position.x;
         startY = (int)unit.transform.position.z;
         path.Clear();
