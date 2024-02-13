@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1895404760727132762}
   - component: {fileID: 5938806529402323818}
   - component: {fileID: 7593597688734325287}
-  - component: {fileID: 4158559310193794476}
+  - component: {fileID: 3126897017955334742}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -119,12 +119,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05b2fb83b81a874e8e40bc667c34859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAct: 1
+  canAct: 0
   actionPoints: 3
   maxActionPoints: 3
   health: 3
   maxHealth: 0
---- !u!114 &4158559310193794476
+--- !u!114 &3126897017955334742
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,8 +136,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc677ce826c1af64cbadf357e0d13321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canFind: 1
-  points: 0
-  nextLocation: {fileID: 0}
-  enemyUnit: {fileID: 0}
-  gridManager: {fileID: 0}

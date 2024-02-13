@@ -22,16 +22,21 @@ public class TurnBasedSystem : MonoBehaviour
 
     public Unit playerUnit;
     public Unit[] enemyUnits;
+
+    public bool canFind;
+    public int points;
+    public Transform nextLocation;
+    public GridManager gridManager;
     void Start()
     {
-
+        gridManager = FindObjectOfType<GridManager>();
     }
     void Update()
     {
         StartBattle();
         EndTurnCondition();
     }
-
+    
     void StartBattle()
     {
         if (start)
@@ -106,11 +111,31 @@ public class TurnBasedSystem : MonoBehaviour
     void EnemyTurn()
     {
         Debug.Log("Enemy turn");
+        FindPlayer();
         for (int i = 0; i < enemyPrefabs.Length; i++)
         {
             enemyUnits[i] = enemyPrefabs[i].GetComponent<Unit>();
             enemyUnits[i].StartTurn();
+
+            if (enemyUnits[i].canAct)
+            {
+                /*gridManager.unit = FindObjectOfType<EnemyController>().gameObject;
+                canFind = false;
+                gridManager.endX = (int)nextLocation.position.x;
+                gridManager.endY = (int)nextLocation.position.z;
+                gridManager.TryFindPath();
+                gridManager.MoveUnit();*/
+                StartCoroutine(gridManager.MoveEnemy());
+                Debug.Log("enemy moved");
+                //enemyUnits[i].canAct = false;
+            }
         }
+    }
+    void FindPlayer()
+    {
+        if (!canFind) return;
+        GameObject player = FindObjectOfType<PlayerController>().gameObject;
+        nextLocation = player.transform;
     }
     void FinishTurn()
     {

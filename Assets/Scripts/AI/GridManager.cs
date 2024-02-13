@@ -30,22 +30,6 @@ public class GridManager : MonoBehaviour
             Debug.Log("generate failed");
         }
     }
-    void Update()
-    {
-        if (findDistance && !move)
-        {
-            SetDistance();
-            SetPath();
-            findDistance = false;
-        }
-
-        if (move && path.Count > 0)
-        {
-            MoveUnit();
-            move = false;
-        }
-    }
-
     public void TryFindPath()
     {
         findDistance = true;
@@ -219,20 +203,24 @@ public class GridManager : MonoBehaviour
     public bool move;
     public void MoveUnit()
     {
-        if (gridArray[endX, endY] && gridArray[endX, endY].GetComponent<GridInfo>().accessID > 0)
+        if (move && path.Count > 0)
         {
-            path.Reverse();
-            StartCoroutine(MoveAlongPath());
-            //Vector3 targetPos = path[1].transform.position;
-            //unit.transform.position = targetPos;
+            if (gridArray[endX, endY] && gridArray[endX, endY].GetComponent<GridInfo>().accessID > 0)
+            {
+                path.Reverse();
+                StartCoroutine(MoveAlongPath());
+                //Vector3 targetPos = path[1].transform.position;
+                //unit.transform.position = targetPos;
+            }
+            else
+            {
+                Debug.Log("im gonna sleep");
+            }
+            //startX = (int)unit.transform.position.x;
+            //startY = (int)unit.transform.position.z;
+            //path.Clear();
         }
-        else
-        {
-            Debug.Log("im gonna sleep");
-        }
-        //startX = (int)unit.transform.position.x;
-        //startY = (int)unit.transform.position.z;
-        //path.Clear();
+        move = false;
     }
     IEnumerator MoveAlongPath()
     {
@@ -248,5 +236,34 @@ public class GridManager : MonoBehaviour
         startX = (int)unit.transform.position.x;
         startY = (int)unit.transform.position.z;
         path.Clear();
+    }
+    public bool canFind;
+    public int points;
+    public Transform nextLocation;
+    public IEnumerator MoveEnemy()
+    {
+        FindPlayer();
+        unit = FindObjectOfType<EnemyController>().gameObject;
+        canFind = false;
+        endX = (int)nextLocation.position.x;
+        endY = (int)nextLocation.position.z;
+        //TryFindPath();
+        if (findDistance && !move)
+        {
+            SetDistance();
+            SetPath();
+            findDistance = false;
+            move = true;
+        }
+
+        yield return new WaitForSeconds(1f);
+        MoveUnit();
+
+    }
+    void FindPlayer()
+    {
+        if (!canFind) return;
+        GameObject player = FindObjectOfType<PlayerController>().gameObject;
+        nextLocation = player.transform;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public bool canFind;
+    /*public bool canFind;
     public int points;
     public Transform nextLocation;
     public Unit enemyUnit;
@@ -44,5 +44,5 @@ public class EnemyController : MonoBehaviour
         {
             points = gameObject.GetComponent<GridInfo>().rewardPoints;
         }
-    }
+    }*/
 }
