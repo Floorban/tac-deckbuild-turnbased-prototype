@@ -250,7 +250,7 @@ public class GridManager : MonoBehaviour
     {
         FindPlayer();
         unit = FindObjectOfType<EnemyController>().gameObject;
-        canFind = false;
+        //canFind = false;
         endX = (int)nextLocation.position.x;
         endY = (int)nextLocation.position.z;
         //TryFindPath();
@@ -258,7 +258,7 @@ public class GridManager : MonoBehaviour
         {
             SetDistance();
             SetPath();
-            findDistance = false;
+            //findDistance = false;
             move = true;
         }
 
