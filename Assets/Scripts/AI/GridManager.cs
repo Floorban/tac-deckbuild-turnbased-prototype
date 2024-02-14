@@ -233,7 +233,7 @@ public class GridManager : MonoBehaviour
             targetPosition.y = unit.transform.position.y;
             unit.transform.position = targetPosition;
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
 
             path.RemoveAt(0);
             unitComponent.actionPoints--;

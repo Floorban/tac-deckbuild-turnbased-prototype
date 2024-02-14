@@ -76,8 +76,8 @@ public class TurnBasedSystem : MonoBehaviour
             {
                 enemyUnits[i].EndTurn();
             }
-            FinishTurn();
-            state = GameState.Finish;
+            PlayerTurn();
+            state = GameState.PlayerTurn;
         }
     }
     IEnumerator SetUpState()
