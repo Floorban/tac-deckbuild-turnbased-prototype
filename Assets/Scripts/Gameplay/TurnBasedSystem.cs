@@ -72,10 +72,10 @@ public class TurnBasedSystem : MonoBehaviour
 
         if (allEnemiesFinished && state == GameState.EnemyTurn)
         {
-            for (int i = 0; i < enemyUnits.Length; i++)
+            /*for (int i = 0; i < enemyUnits.Length; i++)
             {
                 enemyUnits[i].EndTurn();
-            }
+            }*/
             PlayerTurn();
             state = GameState.PlayerTurn;
         }

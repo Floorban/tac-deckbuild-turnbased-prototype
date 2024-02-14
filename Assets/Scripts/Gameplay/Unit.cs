@@ -7,6 +7,7 @@ public class Unit : MonoBehaviour
     public bool canAct;
     public int actionPoints;
     public int maxActionPoints;
+    public int addedActionPoints;
     public int health;
     public int maxHealth;
 
@@ -14,9 +15,13 @@ public class Unit : MonoBehaviour
     {
         EndTurn();
     }
+    public void AddActionPoints(int nextTurnAddedPoints)
+    {
+        addedActionPoints = nextTurnAddedPoints;
+    }
     public void StartTurn()
     {
-        actionPoints = maxActionPoints;
+        actionPoints = maxActionPoints + addedActionPoints;
         canAct = true;
     }
     public void EndTurn()

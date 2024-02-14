@@ -232,11 +232,13 @@ public class GridManager : MonoBehaviour
             Vector3 targetPosition = gridCell.transform.position;
             targetPosition.y = unit.transform.position.y;
             unit.transform.position = targetPosition;
-
             yield return new WaitForSeconds(0.5f);
 
             path.RemoveAt(0);
-            unitComponent.actionPoints--;
+            if (unitComponent.canAct)
+            {
+                unitComponent.actionPoints--;
+            }
         }
 
         startX = (int)unit.transform.position.x;
