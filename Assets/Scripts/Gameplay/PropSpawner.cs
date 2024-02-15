@@ -34,8 +34,8 @@ public class PropSpawner : MonoBehaviour
     }
     public void SpawnIndicators()
     {
-        int randomX = Random.Range(1, 5);
-        int randomY = Random.Range(1, 5);
+        int randomX = Random.Range(1, 7);
+        int randomY = Random.Range(1, 7);
         GameObject gridCell = gridManager.gridArray[randomX, randomY];
         spawnTrans = gridCell.transform;
         if (canSpawnIndicator)

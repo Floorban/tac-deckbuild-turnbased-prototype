@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;
 
 public class TurnBasedSystem : MonoBehaviour
 {
@@ -48,11 +46,47 @@ public class TurnBasedSystem : MonoBehaviour
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            playerUnit.EndTurn();
+            state = GameState.EnemyTurn;
+            EnemyTurn();
+        }
+        HandleStateTransitions();
+        HandleStates(state);
         if (state == GameState.Finish) return;
         StartBattle();
-        EndTurnCondition();
+        EndTurnCondition(); 
     }
-    
+    void HandleStateTransitions()
+    {
+
+    }
+    void HandleStates(GameState state)
+    {
+        switch(state)
+        {
+            case (GameState.Idle):
+            //
+            break;
+
+            case (GameState.Start):
+            //
+            break;
+
+            case (GameState.PlayerTurn):
+                
+            break;
+
+            case (GameState.EnemyTurn):
+      
+            break;
+
+            case (GameState.Finish):
+                //
+            break;
+        }
+    }
     void StartBattle()
     {
         if (start)
@@ -112,10 +146,8 @@ public class TurnBasedSystem : MonoBehaviour
         spawnEnemy = true;
         Debug.Log("Battel starts");
         yield return new WaitForSeconds(1f);
-
-        state = GameState.PlayerTurn;
         PlayerTurn();
-        yield return null;
+        state = GameState.PlayerTurn;
     }
     void PlayerTurn()
     {
@@ -126,30 +158,12 @@ public class TurnBasedSystem : MonoBehaviour
     void EnemyTurn()
     {
         Debug.Log("Enemy turn");
-        FindPlayer();
         for (int i = 0; i < enemyPrefabs.Length; i++)
         {
             enemyUnits[i].StartTurn();
-
             if (enemyUnits[i].canAct)
-            {
-                /*gridManager.unit = FindObjectOfType<EnemyController>().gameObject;
-                canFind = false;
-                gridManager.endX = (int)nextLocation.position.x;
-                gridManager.endY = (int)nextLocation.position.z;
-                gridManager.TryFindPath();
-                gridManager.MoveUnit();*/
                 StartCoroutine(gridManager.MoveEnemy());
-                Debug.Log("enemy moved");
-                //enemyUnits[i].canAct = false;
-            }
         }
-    }
-    void FindPlayer()
-    {
-        if (!canFind) return;
-        GameObject player = FindObjectOfType<PlayerController>().gameObject;
-        nextLocation = player.transform;
     }
     void FinishTurn()
     {

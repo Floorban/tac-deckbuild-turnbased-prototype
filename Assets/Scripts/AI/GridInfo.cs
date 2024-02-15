@@ -14,6 +14,7 @@ public class GridInfo : MonoBehaviour
     void Start()
     {
         idText = GetComponentInChildren<TMP_Text>();
+        rewardPoints = 1;
     }
     void Update()
     {
@@ -23,11 +24,21 @@ public class GridInfo : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerController>())
         {
-            rewardPoints = 10;
-        }else if (other.gameObject.GetComponent<Prop>())
+            rewardPoints = 5;
+        }
+        else if (other.gameObject.GetComponent<Prop>())
         {
-            rewardPoints = 100;
-        }else
+            rewardPoints = 4;
+        }
+        else if (other.gameObject.CompareTag("Indicator"))
+        {
+            rewardPoints = 3;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<PlayerController>() || other.gameObject.GetComponent<Prop>() || other.gameObject.CompareTag("Indicator"))
         {
             rewardPoints = 1;
         }

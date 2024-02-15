@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 668962870405930826}
   - component: {fileID: 2860695904914525624}
   - component: {fileID: 1895404760727132762}
-  - component: {fileID: 5938806529402323818}
   - component: {fileID: 7593597688734325287}
   - component: {fileID: 3126897017955334742}
+  - component: {fileID: 4483913316456862011}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Enemy
@@ -86,8 +86,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5938806529402323818
-BoxCollider:
+--- !u!114 &7593597688734325287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601940025879165026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d05b2fb83b81a874e8e40bc667c34859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canAct: 0
+  actionPoints: 0
+  maxActionPoints: 3
+  addedActionPoints: 0
+  health: 3
+  maxHealth: 0
+--- !u!114 &3126897017955334742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601940025879165026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc677ce826c1af64cbadf357e0d13321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &4483913316456862011
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -105,34 +135,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7593597688734325287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7601940025879165026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d05b2fb83b81a874e8e40bc667c34859, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canAct: 0
-  actionPoints: 3
-  maxActionPoints: 3
-  health: 3
-  maxHealth: 0
---- !u!114 &3126897017955334742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7601940025879165026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc677ce826c1af64cbadf357e0d13321, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
