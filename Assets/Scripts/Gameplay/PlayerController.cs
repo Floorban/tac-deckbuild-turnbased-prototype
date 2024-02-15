@@ -37,11 +37,11 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            StartCoroutine(RotatePlayer(-90f));
+            StartCoroutine(MovePlayer(-playerDirector.transform.right));
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            StartCoroutine(RotatePlayer(90f));
+            StartCoroutine(MovePlayer(playerDirector.transform.right));
         }
     }
 

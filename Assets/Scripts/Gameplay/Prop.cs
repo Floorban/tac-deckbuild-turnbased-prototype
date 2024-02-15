@@ -5,7 +5,12 @@ using UnityEngine;
 public class Prop : MonoBehaviour
 {
     public int rewardPoints;
+    PropSpawner spawner;
 
+    void Start()
+    {
+      spawner = FindObjectOfType<PropSpawner>();
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Unit>())
@@ -13,6 +18,8 @@ public class Prop : MonoBehaviour
             Unit unit = other.GetComponent<Unit>();
             unit.AddActionPoints(rewardPoints);
             gameObject.SetActive(false);
+            spawner.canSpawn = true;
+            spawner.canSpawnIndicator = true;
         }
     }
 }
