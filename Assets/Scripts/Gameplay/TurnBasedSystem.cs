@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class TurnBasedSystem : MonoBehaviour
 {
@@ -153,6 +154,7 @@ public class TurnBasedSystem : MonoBehaviour
     void FinishTurn()
     {
         state = GameState.Finish;
+        start = false;
         playerUnit.actionPoints = 0;
         playerUnit.addedActionPoints = 0;
         for (int i = 0; i < enemyPrefabs.Length; i++)
@@ -160,5 +162,11 @@ public class TurnBasedSystem : MonoBehaviour
             enemyUnits[i].addedActionPoints = 0;
         }
         Debug.Log("Game Over");
+    }
+    public void StartGame()
+    {
+        state = GameState.Idle;
+        start = true;
+        spawnEnemy = false;
     }
 }

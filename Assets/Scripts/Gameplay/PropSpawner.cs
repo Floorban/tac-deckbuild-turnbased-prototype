@@ -12,16 +12,30 @@ public class PropSpawner : MonoBehaviour
     [SerializeField] GameObject particalPrefab;
     [SerializeField] GameObject propPrefab;
     [SerializeField] GameObject indicator;
+    [SerializeField] GameObject prop;
     [SerializeField] Transform spawnTrans;
     void Start()
     {
         gridManager = GetComponent<GridManager>();
         canSpawnIndicator = true;
     }
+    void OnEnable()
+    {
+        Actions.onGameOver += InitializeProps;
+    }
+    void OnDisable()
+    {
+        Actions.onGameOver -= InitializeProps;
+    }
+    void InitializeProps()
+    {
+        Destroy(indicator); indicator = null;
+        Destroy(prop); prop = null;
+    }
     public void SpawnIndicators()
     {
-        int randomX = Random.Range(1, 9);
-        int randomY = Random.Range(1, 9);
+        int randomX = Random.Range(1, 5);
+        int randomY = Random.Range(1, 5);
         GameObject gridCell = gridManager.gridArray[randomX, randomY];
         spawnTrans = gridCell.transform;
         if (canSpawnIndicator)
@@ -36,7 +50,7 @@ public class PropSpawner : MonoBehaviour
     {
         if (canSpawn && !spawned)
         {
-            Instantiate(propPrefab, spawnTrans);
+            prop =  Instantiate(propPrefab, spawnTrans);
             Destroy(indicator);
             spawned = true;
             canSpawn = false;
