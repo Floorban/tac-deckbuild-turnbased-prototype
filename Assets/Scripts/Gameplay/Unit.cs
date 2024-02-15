@@ -26,7 +26,7 @@ public class Unit : MonoBehaviour
     }
     public void EndTurn()
     {
-        if (actionPoints < 0)
+        if (actionPoints <= 0)
         {
             canAct = false;
         }

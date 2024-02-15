@@ -226,21 +226,16 @@ public class GridManager : MonoBehaviour
     {
         Unit unitComponent = unit.GetComponent<Unit>();
 
-        while (unitComponent.actionPoints >= 0 && path.Count > 0)
+        while (unitComponent.actionPoints > 0)
         {
-            GameObject gridCell = path[0];
+            GameObject gridCell = path[1];
             Vector3 targetPosition = gridCell.transform.position;
             targetPosition.y = unit.transform.position.y;
             unit.transform.position = targetPosition;
             yield return new WaitForSeconds(0.5f);
-
             path.RemoveAt(0);
-            if (unitComponent.canAct)
-            {
-                unitComponent.actionPoints--;
-            }
+            unitComponent.actionPoints--;
         }
-
         startX = (int)unit.transform.position.x;
         startY = (int)unit.transform.position.z;
         path.Clear();
