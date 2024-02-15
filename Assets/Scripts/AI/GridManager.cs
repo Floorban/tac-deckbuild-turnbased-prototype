@@ -30,6 +30,53 @@ public class GridManager : MonoBehaviour
             Debug.Log("generate failed");
         }
     }
+    public void SetNeighborGridFactors()
+    {
+        for (int i = 0; i < columns; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                GridInfo gridInfo = gridArray[i, j].GetComponent<GridInfo>();
+
+                if (gridInfo.gridFactor >= 3)
+                {
+                    UpdateNeighborGridFactors(gridInfo);
+                }
+            }
+        }
+    }
+    void UpdateNeighborGridFactors(GridInfo gridInfo)
+    {
+        Vector2Int gridPosition = gridInfo.GetGridPosition();
+
+        // Define a range for neighboring grids
+        int range = 6;
+
+        for (int a = Mathf.Max(0, gridPosition.x - range); a <= Mathf.Min(columns - 1, gridPosition.x + range); a++)
+        {
+            for (int b = Mathf.Max(0, gridPosition.y - range); b <= Mathf.Min(rows - 1, gridPosition.y + range); b++)
+            {
+                if (gridArray[a, b] && (a != gridPosition.x || b != gridPosition.y)) // Skip the center grid
+                {
+                    GridInfo neighborGrid = gridArray[a, b].GetComponent<GridInfo>();
+                    int distance = Mathf.Max(Mathf.Abs(a - gridPosition.x), Mathf.Abs(b - gridPosition.y));
+                    int newFactor = Mathf.Max(1, gridInfo.gridFactor - distance);
+                    neighborGrid.gridFactor = Mathf.Max(neighborGrid.gridFactor, newFactor);
+                }
+            }
+        }
+    }
+    public void ClearGridFactors()
+    {
+        for (int i = 0; i < columns; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                GridInfo gridInfo = gridArray[i, j].GetComponent<GridInfo>();
+                gridInfo.gridFactor = 1;
+            }
+        }
+    }
     public void TryFindPath()
     {
         findDistance = true;
@@ -73,6 +120,7 @@ public class GridManager : MonoBehaviour
     }
     void SetPath()
     {
+        SetNeighborGridFactors();
         int step;
         int x = endX;
         int y = endY;
@@ -221,6 +269,7 @@ public class GridManager : MonoBehaviour
             //path.Clear();
         }
         move = false;
+        //ClearGridFactors();
     }
     IEnumerator MoveAlongPath()
     {

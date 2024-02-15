@@ -23,17 +23,17 @@ public class GridInfo : MonoBehaviour
             accessID = 1;
 
         rewardPoints = gridFactor * (5 / accessID);
-        idText.text = rewardPoints.ToString();
+        idText.text = gridFactor.ToString();
     }
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerController>())
         {
-            gridFactor = 50;
+            gridFactor = 5;
         }
         else if (other.gameObject.GetComponent<Prop>())
         {
-            gridFactor = 40;
+            gridFactor = 4;
         }
         else if (other.gameObject.CompareTag("Indicator"))
         {
@@ -47,5 +47,9 @@ public class GridInfo : MonoBehaviour
         {
             gridFactor = 1;
         }
+    }
+    public Vector2Int GetGridPosition()
+    {
+        return new Vector2Int(x, y);
     }
 }

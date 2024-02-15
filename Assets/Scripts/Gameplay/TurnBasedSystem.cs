@@ -146,6 +146,7 @@ public class TurnBasedSystem : MonoBehaviour
         spawnEnemy = true;
         Debug.Log("Battel starts");
         yield return new WaitForSeconds(1f);
+        gridManager.ClearGridFactors();
         PlayerTurn();
         state = GameState.PlayerTurn;
     }
