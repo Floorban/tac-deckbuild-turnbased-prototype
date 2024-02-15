@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public Unit playerUnit;
     public float movementSpeed = 5f;
     public float rotationSpeed = 180f;
+    public bool canFix;
+    public GameObject machine;
 
     [SerializeField] bool isMoving = false;
 
@@ -25,12 +27,31 @@ public class PlayerController : MonoBehaviour
         {
             HandleMovement();
         }
+
+        if (Input.GetKeyDown(KeyCode.Space) && canFix)
+        {
+            machine.GetComponent<Machine>().isFixed = true;
+        }
     }
     void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.GetComponent<Machine>())
+        {
+            machine = other.gameObject;
+            canFix = true;
+        }
+
         if (other.gameObject.CompareTag("Enemy"))
         {
             Actions.onGameOver();
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<Machine>())
+        {
+            machine = null;
+            canFix = false;
         }
     }
     void HandleMovement()

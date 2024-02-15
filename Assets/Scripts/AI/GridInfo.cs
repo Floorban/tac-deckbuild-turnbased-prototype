@@ -19,4 +19,17 @@ public class GridInfo : MonoBehaviour
     {
         idText.text = accessID.ToString();
     }
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.GetComponent<PlayerController>())
+        {
+            rewardPoints = 10;
+        }else if (other.gameObject.GetComponent<Prop>())
+        {
+            rewardPoints = 100;
+        }else
+        {
+            rewardPoints = 1;
+        }
+    }
 }
