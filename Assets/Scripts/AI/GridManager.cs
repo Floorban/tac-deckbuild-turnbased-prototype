@@ -226,7 +226,7 @@ public class GridManager : MonoBehaviour
     {
         Unit unitComponent = unit.GetComponent<Unit>();
 
-        while (unitComponent.actionPoints > 0)
+        while (unitComponent.actionPoints > 0 && path.Count > 1)
         {
             GameObject gridCell = path[1];
             Vector3 targetPosition = gridCell.transform.position;

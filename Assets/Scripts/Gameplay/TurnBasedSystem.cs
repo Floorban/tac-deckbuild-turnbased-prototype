@@ -29,9 +29,13 @@ public class TurnBasedSystem : MonoBehaviour
     public GridManager gridManager;
 
     [SerializeField] bool allEnemiesFinished;
+
+    public PropSpawner propSpawner;
+    bool spawnEnemy = false;
     void Start()
     {
         gridManager = FindObjectOfType<GridManager>();
+        propSpawner = FindObjectOfType<PropSpawner>();
     }
     void Update()
     {
@@ -44,6 +48,8 @@ public class TurnBasedSystem : MonoBehaviour
         if (start)
         {
             state = GameState.Start;
+            propSpawner.SpawnProps();
+            propSpawner.SpawnIndicators();
             StartCoroutine(SetUpState());
             start = false;
         }
@@ -76,20 +82,24 @@ public class TurnBasedSystem : MonoBehaviour
             {
                 enemyUnits[i].EndTurn();
             }*/
-            PlayerTurn();
-            state = GameState.PlayerTurn;
+            //PlayerTurn();
+            start = true;
         }
     }
     IEnumerator SetUpState()
     {
-        playerUnit = player.GetComponent<Unit>();
-        enemyUnits = new Unit[enemyPrefabs.Length];
-
         for (int i = 0; i < enemyPrefabs.Length; i++)
         {
-            GameObject enemyGo = Instantiate(enemyPrefabs[i], enemySpawnTrans[i]);
-            enemyUnits[i] = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Unit>();
+            if (!spawnEnemy)
+            {
+                playerUnit = player.GetComponent<Unit>();
+                enemyUnits = new Unit[enemyPrefabs.Length];
+
+                GameObject enemyGo = Instantiate(enemyPrefabs[i], enemySpawnTrans[i]);
+                enemyUnits[i] = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Unit>();
+            }
         }
+        spawnEnemy = true;
         Debug.Log("Battel starts");
         yield return new WaitForSeconds(1f);
 
