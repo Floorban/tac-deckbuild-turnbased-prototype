@@ -32,6 +32,14 @@ public class TurnBasedSystem : MonoBehaviour
 
     public PropSpawner propSpawner;
     bool spawnEnemy = false;
+    void OnEnable()
+    {
+        Actions.onGameOver += FinishTurn;
+    }
+    void OnDisable()
+    {
+        Actions.onGameOver -= FinishTurn;
+    }
     void Start()
     {
         gridManager = FindObjectOfType<GridManager>();
@@ -39,6 +47,7 @@ public class TurnBasedSystem : MonoBehaviour
     }
     void Update()
     {
+        if (state == GameState.Finish) return;
         StartBattle();
         EndTurnCondition();
     }
@@ -143,6 +152,13 @@ public class TurnBasedSystem : MonoBehaviour
     }
     void FinishTurn()
     {
-        Debug.Log("Next Round");
+        state = GameState.Finish;
+        playerUnit.actionPoints = 0;
+        playerUnit.addedActionPoints = 0;
+        for (int i = 0; i < enemyPrefabs.Length; i++)
+        {
+            enemyUnits[i].addedActionPoints = 0;
+        }
+        Debug.Log("Game Over");
     }
 }

@@ -5,5 +5,5 @@ using System;
 
 public static class Actions
 {
-    //public static Action<int> onAddActionPoints;
+    public static Action onGameOver;
 }

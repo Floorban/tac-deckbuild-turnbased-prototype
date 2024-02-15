@@ -12,19 +12,27 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool isMoving = false;
 
     [SerializeField] GameObject playerDirector;
+    TurnBasedSystem system;
     void Start()
     {
         playerUnit = GetComponent<Unit>();
+        system = FindObjectOfType<TurnBasedSystem>();
     }
 
     void Update()
     {
-        if (playerUnit.canAct && !isMoving && playerUnit.actionPoints > 0)
+        if (playerUnit.canAct && !isMoving && playerUnit.actionPoints > 0 && system.state == TurnBasedSystem.GameState.PlayerTurn)
         {
             HandleMovement();
         }
     }
-
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Actions.onGameOver();
+        }
+    }
     void HandleMovement()
     {
         if (Input.GetKeyDown(KeyCode.W))
