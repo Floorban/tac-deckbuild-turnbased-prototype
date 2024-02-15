@@ -7,6 +7,7 @@ public class GridInfo : MonoBehaviour
 {
     public int accessID;
     public int rewardPoints;
+    public int gridFactor;
     public int x;
     public int y;
 
@@ -14,25 +15,29 @@ public class GridInfo : MonoBehaviour
     void Start()
     {
         idText = GetComponentInChildren<TMP_Text>();
-        rewardPoints = 1;
+        gridFactor = 1;
     }
     void Update()
     {
-        idText.text = accessID.ToString();
+        if (accessID <= 0)
+            accessID = 1;
+
+        rewardPoints = gridFactor * (5 / accessID);
+        idText.text = rewardPoints.ToString();
     }
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerController>())
         {
-            rewardPoints = 5;
+            gridFactor = 50;
         }
         else if (other.gameObject.GetComponent<Prop>())
         {
-            rewardPoints = 4;
+            gridFactor = 40;
         }
         else if (other.gameObject.CompareTag("Indicator"))
         {
-            rewardPoints = 3;
+            gridFactor = 3;
         }
     }
 
@@ -40,7 +45,7 @@ public class GridInfo : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerController>() || other.gameObject.GetComponent<Prop>() || other.gameObject.CompareTag("Indicator"))
         {
-            rewardPoints = 1;
+            gridFactor = 1;
         }
     }
 }

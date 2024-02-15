@@ -181,7 +181,7 @@ public class GridManager : MonoBehaviour
     void SetRewardPoints(int x, int y, int rewardPoint)
     {
         if (gridArray[x,y])
-        gridArray[x, y].GetComponent<GridInfo>().rewardPoints = rewardPoint;
+        gridArray[x, y].GetComponent<GridInfo>().gridFactor = rewardPoint;
     }
     GameObject FindClosest(Transform targetLocation, List<GameObject> list)
     {
