@@ -23,6 +23,7 @@ public class Unit : MonoBehaviour
     {
         actionPoints = maxActionPoints + addedActionPoints;
         canAct = true;
+        addedActionPoints = 0;
     }
     public void EndTurn()
     {
