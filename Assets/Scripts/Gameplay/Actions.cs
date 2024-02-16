@@ -6,4 +6,5 @@ using System;
 public static class Actions
 {
     public static Action onGameOver;
+    public static Action onEnemyFinish;
 }

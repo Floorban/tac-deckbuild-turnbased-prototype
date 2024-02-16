@@ -25,12 +25,20 @@ public class Machine : MonoBehaviour
     }
     void OnTriggerStay(Collider other)
     {
+        if (other.gameObject.GetComponent<EnemyController>())
+        {
+            isFixed = false;
+        }
+        if (isFixed && other.gameObject.GetComponent<GridInfo>())
+        {
+            other.GetComponent<GridInfo>().gridFactor = 6;
+        }
         if (other.gameObject.GetComponent<Unit>()) 
         {
             canFixed = true;
         }else
         {
-            canFixed &= false;
+            canFixed = false;
         }
     }
 

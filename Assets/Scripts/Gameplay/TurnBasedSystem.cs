@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TurnBasedSystem : MonoBehaviour
@@ -34,10 +35,12 @@ public class TurnBasedSystem : MonoBehaviour
     void OnEnable()
     {
         Actions.onGameOver += FinishTurn;
+        Actions.onEnemyFinish += HandleStateTransitions;
     }
     void OnDisable()
     {
         Actions.onGameOver -= FinishTurn;
+        Actions.onEnemyFinish -= HandleStateTransitions;
     }
     void Start()
     {
@@ -52,7 +55,7 @@ public class TurnBasedSystem : MonoBehaviour
             state = GameState.EnemyTurn;
             EnemyTurn();
         }
-        HandleStateTransitions();
+        //HandleStateTransitions();
         HandleStates(state);
         if (state == GameState.Finish) return;
         StartBattle();
@@ -61,6 +64,18 @@ public class TurnBasedSystem : MonoBehaviour
     void HandleStateTransitions()
     {
 
+        for (int i = 0; i < enemyUnits.Length; i++)
+        {
+            if (enemyUnits[i].canAct)
+            {
+                allEnemiesFinished = false;
+            }
+            else
+            {
+                allEnemiesFinished = true;
+                break; // Exit the loop as soon as one enemy can still act
+            }
+        }
     }
     void HandleStates(GameState state)
     {

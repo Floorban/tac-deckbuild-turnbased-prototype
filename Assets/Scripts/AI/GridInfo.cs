@@ -18,19 +18,15 @@ public class GridInfo : MonoBehaviour
     }
     void Update()
     {
-        if (accessID <= 0)
-            accessID = 1;
-
         rewardPoints = 1 - (accessID / 3) + gridFactor;
         idText.text = rewardPoints.ToString();
+
+        if (accessID <= 0)
+            accessID = 1;
     }
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerController>())
-        {
-            gridFactor = 5;
-        }
-        else if (other.gameObject.GetComponent<Machine>())
         {
             gridFactor = 5;
         }

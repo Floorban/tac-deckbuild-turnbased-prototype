@@ -10,7 +10,6 @@ public class Unit : MonoBehaviour
     public int addedActionPoints;
     public int health;
     public int maxHealth;
-
     void Update()
     {
         EndTurn();

@@ -38,7 +38,7 @@ public class GridManager : MonoBehaviour
             {
                 GridInfo gridInfo = gridArray[i, j].GetComponent<GridInfo>();
 
-                if (gridInfo.gridFactor >= 3)
+                if (gridInfo.gridFactor > 0)
                 {
                     UpdateNeighborGridFactors(gridInfo);
                 }
@@ -60,7 +60,7 @@ public class GridManager : MonoBehaviour
                 {
                     GridInfo neighborGrid = gridArray[a, b].GetComponent<GridInfo>();
                     int distance = Mathf.Max(Mathf.Abs(a - gridPosition.x), Mathf.Abs(b - gridPosition.y));
-                    int newFactor = Mathf.Max(1, gridInfo.gridFactor - distance);
+                    int newFactor = Mathf.Max(0, gridInfo.gridFactor - distance);
                     neighborGrid.gridFactor = Mathf.Max(neighborGrid.gridFactor, newFactor);
                 }
             }
@@ -132,6 +132,7 @@ public class GridManager : MonoBehaviour
         }
         else
         {
+            Actions.onEnemyFinish();
             Debug.Log("can't reach the endPos");
             return;
         }
@@ -272,6 +273,12 @@ public class GridManager : MonoBehaviour
             path.RemoveAt(0);
             unitComponent.actionPoints--;
         }
+
+        if (unit.transform == nextLocation.transform)
+        {
+            unitComponent.actionPoints = 0;
+            unitComponent.canAct = false;
+        }
         startX = (int)unit.transform.position.x;
         startY = (int)unit.transform.position.z;
         path.Clear();
@@ -317,9 +324,9 @@ public class GridManager : MonoBehaviour
             {
                 GridInfo gridInfo = gridArray[i, j].GetComponent<GridInfo>();
 
-                if (gridInfo.gridFactor > highestFactor)
+                if (gridInfo.rewardPoints > highestFactor)
                 {
-                    highestFactor = gridInfo.gridFactor;
+                    highestFactor = gridInfo.rewardPoints;
                     highestFactorGrid = gridInfo;
                 }
             }
