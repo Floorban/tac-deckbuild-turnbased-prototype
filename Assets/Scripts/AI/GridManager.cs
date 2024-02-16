@@ -256,10 +256,7 @@ public class GridManager : MonoBehaviour
             //startY = (int)unit.transform.position.z;
             //path.Clear();
         }
-        if (path.Count == 0)
-        {
-            Actions.onEnemyFinish();
-        }
+
         move = false;
         //ClearGridFactors();
     }
@@ -279,7 +276,10 @@ public class GridManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             path.RemoveAt(0);
             unitComponent.actionPoints--;
-
+            if (path.Count == 0 && unitComponent.actionPoints > 0)
+            {
+                Actions.onEnemyFinish();
+            }
         }
 
         startX = (int)unit.transform.position.x;
