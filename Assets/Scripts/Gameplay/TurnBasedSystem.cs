@@ -122,18 +122,7 @@ public class TurnBasedSystem : MonoBehaviour
             EnemyTurn();
         }
 
-        for (int i = 0; i < enemyUnits.Length; i++)
-        {
-            if (enemyUnits[i].canAct)
-            {
-                allEnemiesFinished = false;
-            }
-            else
-            {
-                allEnemiesFinished = true;
-                break; // Exit the loop as soon as one enemy can still act
-            }
-        }
+        HandleStateTransitions();
 
         if (allEnemiesFinished && state == GameState.EnemyTurn)
         {

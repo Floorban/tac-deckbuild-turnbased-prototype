@@ -255,6 +255,9 @@ public class GridManager : MonoBehaviour
             //startX = (int)unit.transform.position.x;
             //startY = (int)unit.transform.position.z;
             //path.Clear();
+        }else
+        {
+            Actions.onEnemyFinish();
         }
 
         move = false;

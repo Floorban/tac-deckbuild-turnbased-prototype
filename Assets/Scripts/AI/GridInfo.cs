@@ -32,7 +32,7 @@ public class GridInfo : MonoBehaviour
         }
         else if (other.gameObject.GetComponent<Prop>())
         {
-            gridFactor = 5;
+            gridFactor = 4;
         }
         else if (other.gameObject.CompareTag("Indicator"))
         {
