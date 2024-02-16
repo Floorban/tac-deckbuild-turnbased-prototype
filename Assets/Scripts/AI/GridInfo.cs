@@ -15,19 +15,22 @@ public class GridInfo : MonoBehaviour
     void Start()
     {
         idText = GetComponentInChildren<TMP_Text>();
-        gridFactor = 1;
     }
     void Update()
     {
         if (accessID <= 0)
             accessID = 1;
 
-        rewardPoints = gridFactor * (5 / accessID);
-        idText.text = gridFactor.ToString();
+        rewardPoints = 1 - (accessID / 3) + gridFactor;
+        idText.text = rewardPoints.ToString();
     }
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerController>())
+        {
+            gridFactor = 5;
+        }
+        else if (other.gameObject.GetComponent<Machine>())
         {
             gridFactor = 5;
         }
@@ -38,14 +41,14 @@ public class GridInfo : MonoBehaviour
         else if (other.gameObject.CompareTag("Indicator"))
         {
             gridFactor = 3;
-        }
+        }  
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerController>() || other.gameObject.GetComponent<Prop>() || other.gameObject.CompareTag("Indicator"))
         {
-            gridFactor = 1;
+            gridFactor = 0;
         }
     }
     public Vector2Int GetGridPosition()

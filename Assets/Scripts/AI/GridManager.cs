@@ -73,7 +73,7 @@ public class GridManager : MonoBehaviour
             for (int j = 0; j < rows; j++)
             {
                 GridInfo gridInfo = gridArray[i, j].GetComponent<GridInfo>();
-                gridInfo.gridFactor = 1;
+                gridInfo.gridFactor = 0;
             }
         }
     }
@@ -85,7 +85,6 @@ public class GridManager : MonoBehaviour
     {
         move = true;
     }
-
     void GenerateGrid()
     {
         for (int i = 0; i < columns; i++)
@@ -218,18 +217,6 @@ public class GridManager : MonoBehaviour
     {
         if (gridArray[x, y])
             gridArray[x, y].GetComponent<GridInfo>().accessID = step;
-    }
-    public void FindPlayerPos(int x, int y)
-    {
-        GameObject player = FindObjectOfType<PlayerController>().gameObject;
-        Vector3 playerPos = new Vector3 (player.transform.position.x, 0, player.transform.position.z);
-        if (rewardArray[x, y])
-            Debug.Log("what?");
-    }
-    void SetRewardPoints(int x, int y, int rewardPoint)
-    {
-        if (gridArray[x,y])
-        gridArray[x, y].GetComponent<GridInfo>().gridFactor = rewardPoint;
     }
     GameObject FindClosest(Transform targetLocation, List<GameObject> list)
     {
