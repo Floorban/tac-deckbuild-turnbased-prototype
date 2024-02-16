@@ -19,7 +19,7 @@ public class GridInfo : MonoBehaviour
     void Update()
     {
         rewardPoints = 1 - (accessID / 3) + gridFactor;
-        idText.text = rewardPoints.ToString();
+        //idText.text = rewardPoints.ToString();
 
         if (accessID <= 0)
             accessID = 1;
@@ -32,11 +32,11 @@ public class GridInfo : MonoBehaviour
         }
         else if (other.gameObject.GetComponent<Prop>())
         {
-            gridFactor = 4;
+            gridFactor = 5;
         }
         else if (other.gameObject.CompareTag("Indicator"))
         {
-            gridFactor = 3;
+            gridFactor = 4;
         }  
     }
 

@@ -256,13 +256,20 @@ public class GridManager : MonoBehaviour
             //startY = (int)unit.transform.position.z;
             //path.Clear();
         }
+        if (path.Count == 0)
+        {
+            Actions.onEnemyFinish();
+        }
         move = false;
         //ClearGridFactors();
     }
     IEnumerator MoveAlongPath()
     {
         Unit unitComponent = unit.GetComponent<Unit>();
-
+        if (unit.transform == nextLocation.transform)
+        {
+            Actions.onEnemyFinish();
+        }
         while (unitComponent.actionPoints > 0 && path.Count > 1)
         {
             GameObject gridCell = path[1];
@@ -272,13 +279,9 @@ public class GridManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             path.RemoveAt(0);
             unitComponent.actionPoints--;
+
         }
 
-        if (unit.transform == nextLocation.transform)
-        {
-            unitComponent.actionPoints = 0;
-            unitComponent.canAct = false;
-        }
         startX = (int)unit.transform.position.x;
         startY = (int)unit.transform.position.z;
         path.Clear();
