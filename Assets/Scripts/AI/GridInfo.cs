@@ -19,7 +19,7 @@ public class GridInfo : MonoBehaviour
     void Update()
     {
         rewardPoints = 1 - (accessID / 3) + gridFactor;
-        //idText.text = rewardPoints.ToString();
+        idText.text = rewardPoints.ToString();
 
         if (accessID <= 0)
             accessID = 1;
