@@ -315,7 +315,29 @@ public class GridManager : MonoBehaviour
     void FindPlayer()
     {
         if (!canFind) return;
-        GameObject player = FindObjectOfType<PlayerController>().gameObject;
-        nextLocation = player.transform;
+        /*GameObject player = FindObjectOfType<PlayerController>().gameObject;
+        nextLocation = player.transform;*/
+        nextLocation = FindGridWithHighestFactor().transform;
+    }
+    public GameObject FindGridWithHighestFactor()
+    {
+        GridInfo highestFactorGrid = null;
+        int highestFactor = 0;
+
+        for (int i = 0; i < columns; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                GridInfo gridInfo = gridArray[i, j].GetComponent<GridInfo>();
+
+                if (gridInfo.gridFactor > highestFactor)
+                {
+                    highestFactor = gridInfo.gridFactor;
+                    highestFactorGrid = gridInfo;
+                }
+            }
+        }
+
+        return highestFactorGrid?.gameObject;
     }
 }
